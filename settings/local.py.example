@@ -1,0 +1,116 @@
+import sys
+
+from .prod import *
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+PRODUCTION = False
+
+ADMINS_1C = (
+    ('Konstantin', 'lazarenko@steelkiwi.com'),
+    ('Aleksandr', 'aleksandr.talov@stroylandiya.ru'),
+)
+
+ALLOWED_HOSTS = ['*']
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# DOMAIN = 'localhost:8000'
+# SESSION_COOKIE_DOMAIN = None
+
+# For cookie testing
+DOMAIN = 'stroytest.ru:8000'
+SESSION_COOKIE_DOMAIN = '.stroytest.ru'
+RETAIL_IP = '10.0.2.2'
+
+TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader')
+# CDN_DOMAIN = 'localhost:8001'
+
+WSDL_URL = 'http://94.25.31.230:64320/onlineshop/ws/online.1cws?wsdl'
+
+# LANGUAGE_CODE = 'en'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stroylandiya',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': 3306,
+    },
+    '1c': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sl_1c',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': 3306,
+        'TEST_NAME': 'test_sl1c',
+        'TEST_CHARSET': 'utf8'
+    }
+}
+
+if not TESTING:
+    # debug toolbar settings
+    INTERNAL_IPS = ('127.0.0.1', '10.0.2.2')
+
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        # 'debug_toolbar_line_profiler.panel.ProfilingPanel',
+        # 'debug_toolbar.panels.profiling.ProfilingPanel',
+    )
+    INSTALLED_APPS += ('debug_toolbar', 'debug_toolbar_line_profiler')
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
+    DATABASES['statistic'] = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sl_stat',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': 3306,
+    }
+
+    def show_toolbar(request):
+        return True
+
+    SHOW_TOOLBAR_CALLBACK = show_toolbar
+
+if TESTING:
+    # MONGODB_NAME = 'stroylandiya_test'
+
+    DATABASES['default'] = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': ':memory:'
+    }
+
+
+    # CACHES['api']['OPTIONS']['DB'] = 10
+    # CACHES['session']['OPTIONS']['DB'] = 11
+    # STDNET_CONN = lambda n: 'redis://127.0.0.1:6379?db=1{}'.format(n)
+
+# DOCUMENT_SOURCE = rel('public', 'source')
+IMAGES_DESTINATION = Path('../stroylandiya_cdn/public/media/images')
+# IMAGES_URL = 'http://localhost:8001/images/{name}'
+PRODUCT_IMAGES_URL = 'http://localhost:8001/images/product/{name}'
+
+FRONTEND_URL = 'http://localhost:8888'
+
+IS_1C_SYNC = True
+
+FACEBOOK_APP_ID = ''
+FACEBOOK_API_SECRET = ''
+VK_APP_ID = ''
+VK_API_SECRET = ''

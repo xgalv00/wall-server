@@ -1,0 +1,5 @@
+-r base.txt
+fabric
+django-debug-toolbar
+model-mommy==1.2.6
+names==0.3.0

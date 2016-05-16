@@ -68,6 +68,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # TODO think best place for this middleware
+    'common.middleware.CORSAllowAllMiddleware',
 )
 
 ROOT_URLCONF = 'common.urls'
@@ -126,6 +128,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     )
 }
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'common.serializers.CustomTokenSerializer',
+}
+REST_SESSION_LOGIN = False
 AUTH_USER_MODEL = 'auth.User'
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`

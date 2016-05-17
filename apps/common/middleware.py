@@ -8,5 +8,5 @@ class CORSAllowAllMiddleware(object):
         the session cookie if the session has been emptied.
         """
         response['Access-Control-Allow-Origin'] = '*'
-        response['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
+        response['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         return response

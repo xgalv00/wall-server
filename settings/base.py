@@ -144,4 +144,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_ON_EMAIL_CONFIRMATION = '/'
 
+ACCOUNT_ADAPTER = 'common.adapter.CustomAccountAdapter'
+URL_FRONT = 'http://localhost:8080/#/'
 ######################################################
